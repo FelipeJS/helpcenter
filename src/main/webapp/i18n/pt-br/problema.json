@@ -1,0 +1,14 @@
+{
+    "helpcenterApp": {
+        "Problema" : {
+            "null": "",
+            "Suporte": "Suporte",
+            "Programas": "Programas",
+            "Treinamento": "Treinamento",
+            "Orientacao": "Orientacao",
+            "Sites": "Sites",
+            "Servidores": "Servidores",
+            "Outros": "Outros"
+        }
+    }
+}

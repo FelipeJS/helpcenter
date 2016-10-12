@@ -1,0 +1,11 @@
+{
+    "helpcenterApp": {
+        "Empresa" : {
+            "null": "",
+            "AGOPA": "AGOPA",
+            "FIALGO": "FIALGO",
+            "Laboratorio": "Laboratorio",
+            "Outro": "Outro"
+        }
+    }
+}

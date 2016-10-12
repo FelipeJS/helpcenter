@@ -1,0 +1,11 @@
+{
+    "helpcenterApp": {
+        "Severidade" : {
+            "null": "",
+            "Urgente": "Urgente",
+            "Alta": "Alta",
+            "Normal": "Normal",
+            "Baixa": "Baixa"
+        }
+    }
+}

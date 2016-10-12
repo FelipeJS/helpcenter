@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span data-translate="helpcenterApp.chamado.detail.title">Chamado</span> {{vm.chamado.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="helpcenterApp.chamado.status">Status</span></dt>
+        <dd>
+            <span data-translate="{{'helpcenterApp.Status.' + vm.chamado.status}}">{{vm.chamado.status}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.empresa">Empresa</span></dt>
+        <dd>
+            <span data-translate="{{'helpcenterApp.Empresa.' + vm.chamado.empresa}}">{{vm.chamado.empresa}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.problema">Problema</span></dt>
+        <dd>
+            <span data-translate="{{'helpcenterApp.Problema.' + vm.chamado.problema}}">{{vm.chamado.problema}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.descricao">Descricao</span></dt>
+        <dd>
+            <span>{{vm.chamado.descricao}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.severidade">Severidade</span></dt>
+        <dd>
+            <span data-translate="{{'helpcenterApp.Severidade.' + vm.chamado.severidade}}">{{vm.chamado.severidade}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.sugestao">Sugestao</span></dt>
+        <dd>
+            <span>{{vm.chamado.sugestao}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.email">Email</span></dt>
+        <dd>
+            <span>{{vm.chamado.email}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.solicitante">Solicitante</span></dt>
+        <dd>
+            {{vm.chamado.solicitante.login}}
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.executante">Executante</span></dt>
+        <dd>
+            {{vm.chamado.executante.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="chamado-detail.edit({id:vm.chamado.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

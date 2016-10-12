@@ -1,0 +1,30 @@
+{
+    "helpcenterApp": {
+        "chamado" : {
+            "home": {
+                "title": "Chamados",
+                "createLabel": "Criar novo Chamado",
+                "createOrEditLabel": "Criar ou editar Chamado",
+                "search": "Pesquisar por Chamado"
+            },
+            "created": "Um novo Chamado é criado com o identificador {{ param }}",
+            "updated": "Um Chamado é atualizado com o identificador {{ param }}",
+            "deleted": "Um Chamado é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Chamado {{ id }}?"
+            },
+            "detail": {
+                "title": "Chamado"
+            },
+            "status": "Status",
+            "empresa": "Empresa",
+            "problema": "Problema",
+            "descricao": "Descricao",
+            "severidade": "Severidade",
+            "sugestao": "Sugestao",
+            "email": "Email",
+            "solicitante": "Solicitante",
+            "executante": "Executante"
+        }
+    }
+}

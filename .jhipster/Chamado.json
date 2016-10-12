@@ -1,0 +1,81 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "solicitante",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "executante",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "Aberto, Analisando, Executando, Finalizado",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "empresa",
+            "fieldType": "Empresa",
+            "fieldValues": "AGOPA, FIALGO, Laboratorio, Outro",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "problema",
+            "fieldType": "Problema",
+            "fieldValues": "Suporte, Programas, Treinamento, Orientacao, Sites, Servidores, Outros",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descricao",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": "5"
+        },
+        {
+            "fieldName": "severidade",
+            "fieldType": "Severidade",
+            "fieldValues": "Urgente, Alta, Normal, Baixa",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sugestao",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": "5"
+        }
+    ],
+    "changelogDate": "20161012224334",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "chamado",
+    "pagination": "no"
+}

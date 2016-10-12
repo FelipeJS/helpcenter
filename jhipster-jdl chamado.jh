@@ -1,0 +1,9 @@
+entity Chamado
+
+relationship ManyToOne {
+  Chamado{solicitante} to User
+}
+
+relationship ManyToOne {
+  Chamado{executante} to User
+}

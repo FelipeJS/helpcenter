@@ -1,0 +1,11 @@
+{
+    "helpcenterApp": {
+        "Status" : {
+            "null": "",
+            "Aberto": "Aberto",
+            "Analisando": "Analisando",
+            "Executando": "Executando",
+            "Finalizado": "Finalizado"
+        }
+    }
+}
