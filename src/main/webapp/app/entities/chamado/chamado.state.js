@@ -119,6 +119,9 @@
                                 severidade: null,
                                 sugestao: null,
                                 email: null,
+                                solucao: null,
+                                dataAberto: null,
+                                dataFechado: null,
                                 id: null
                             };
                         }

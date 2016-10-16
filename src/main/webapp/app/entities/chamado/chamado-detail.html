@@ -32,13 +32,25 @@
         <dd>
             <span>{{vm.chamado.email}}</span>
         </dd>
+        <dt><span data-translate="helpcenterApp.chamado.solucao">Solucao</span></dt>
+        <dd>
+            <span>{{vm.chamado.solucao}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.dataAberto">Data Aberto</span></dt>
+        <dd>
+            <span>{{vm.chamado.dataAberto | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.dataFechado">Data Fechado</span></dt>
+        <dd>
+            <span>{{vm.chamado.dataFechado | date:'mediumDate'}}</span>
+        </dd>
         <dt><span data-translate="helpcenterApp.chamado.solicitante">Solicitante</span></dt>
         <dd>
-            {{vm.chamado.solicitante.login}}
+            {{vm.chamado.solicitante.id}}
         </dd>
         <dt><span data-translate="helpcenterApp.chamado.executante">Executante</span></dt>
         <dd>
-            {{vm.chamado.executante.login}}
+            {{vm.chamado.executante.id}}
         </dd>
     </dl>
 

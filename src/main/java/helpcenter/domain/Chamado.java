@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import helpcenter.domain.enumeration.Status;
@@ -61,6 +62,16 @@ public class Chamado implements Serializable {
     @Size(min = 5)
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "solucao")
+    private String solucao;
+
+    @NotNull
+    @Column(name = "data_aberto", nullable = false)
+    private LocalDate dataAberto;
+
+    @Column(name = "data_fechado")
+    private LocalDate dataFechado;
 
     @ManyToOne
     @NotNull
@@ -168,6 +179,45 @@ public class Chamado implements Serializable {
         this.email = email;
     }
 
+    public String getSolucao() {
+        return solucao;
+    }
+
+    public Chamado solucao(String solucao) {
+        this.solucao = solucao;
+        return this;
+    }
+
+    public void setSolucao(String solucao) {
+        this.solucao = solucao;
+    }
+
+    public LocalDate getDataAberto() {
+        return dataAberto;
+    }
+
+    public Chamado dataAberto(LocalDate dataAberto) {
+        this.dataAberto = dataAberto;
+        return this;
+    }
+
+    public void setDataAberto(LocalDate dataAberto) {
+        this.dataAberto = dataAberto;
+    }
+
+    public LocalDate getDataFechado() {
+        return dataFechado;
+    }
+
+    public Chamado dataFechado(LocalDate dataFechado) {
+        this.dataFechado = dataFechado;
+        return this;
+    }
+
+    public void setDataFechado(LocalDate dataFechado) {
+        this.dataFechado = dataFechado;
+    }
+
     public User getSolicitante() {
         return solicitante;
     }
@@ -225,6 +275,9 @@ public class Chamado implements Serializable {
             ", severidade='" + severidade + "'" +
             ", sugestao='" + sugestao + "'" +
             ", email='" + email + "'" +
+            ", solucao='" + solucao + "'" +
+            ", dataAberto='" + dataAberto + "'" +
+            ", dataFechado='" + dataFechado + "'" +
             '}';
     }
 }

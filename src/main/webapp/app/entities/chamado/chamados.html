@@ -19,34 +19,30 @@
             <thead>
                 <tr>
                     <th><span data-translate="global.field.id">ID</span></th>
-                    <th><span data-translate="helpcenterApp.chamado.status">Status</span></th>
-                    <th><span data-translate="helpcenterApp.chamado.empresa">Empresa</span></th>
                     <th><span data-translate="helpcenterApp.chamado.problema">Problema</span></th>
-                    <th><span data-translate="helpcenterApp.chamado.descricao">Descricao</span></th>
-                    <th><span data-translate="helpcenterApp.chamado.severidade">Severidade</span></th>
-                    <th><span data-translate="helpcenterApp.chamado.sugestao">Sugestao</span></th>
-                    <th><span data-translate="helpcenterApp.chamado.email">Email</span></th>
+                    <th><span data-translate="helpcenterApp.chamado.status">Status</span></th>
+                    <th><span >Data de Abertura</span></th>
                     <th><span data-translate="helpcenterApp.chamado.solicitante">Solicitante</span></th>
                     <th><span data-translate="helpcenterApp.chamado.executante">Executante</span></th>
+                    <th><span data-translate="helpcenterApp.chamado.empresa">Empresa</span></th>
+                    <th><span data-translate="helpcenterApp.chamado.severidade">Severidade</span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="chamado in vm.chamados track by chamado.id">
                     <td><a ui-sref="chamado-detail({id:chamado.id})">{{chamado.id}}</a></td>
-                    <td data-translate="{{'helpcenterApp.Status.' + chamado.status}}">{{chamado.status}}</td>
-                    <td data-translate="{{'helpcenterApp.Empresa.' + chamado.empresa}}">{{chamado.empresa}}</td>
                     <td data-translate="{{'helpcenterApp.Problema.' + chamado.problema}}">{{chamado.problema}}</td>
-                    <td>{{chamado.descricao}}</td>
-                    <td data-translate="{{'helpcenterApp.Severidade.' + chamado.severidade}}">{{chamado.severidade}}</td>
-                    <td>{{chamado.sugestao}}</td>
-                    <td>{{chamado.email}}</td>
+                    <td data-translate="{{'helpcenterApp.Status.' + chamado.status}}">{{chamado.status}}</td>
+                        <td>{{chamado.dataAberto | date:'mediumDate'}}</td>
                     <td>
                         {{chamado.solicitante.login}}
                     </td>
                     <td>
                         {{chamado.executante.login}}
                     </td>
+                    <td data-translate="{{'helpcenterApp.Empresa.' + chamado.empresa}}">{{chamado.empresa}}</td>
+                    <td data-translate="{{'helpcenterApp.Severidade.' + chamado.severidade}}">{{chamado.severidade}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

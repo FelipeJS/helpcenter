@@ -23,6 +23,9 @@
             "severidade": "Severidade",
             "sugestao": "Sugestao",
             "email": "Email",
+            "solucao": "Solucao",
+            "dataAberto": "Data Aberto",
+            "dataFechado": "Data Fechado",
             "solicitante": "Solicitante",
             "executante": "Executante"
         }

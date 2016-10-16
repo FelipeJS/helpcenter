@@ -8,14 +8,14 @@
             "relationshipValidateRules": [
                 "required"
             ],
-            "otherEntityField": "login",
+            "otherEntityField": "id",
             "ownerSide": true
         },
         {
             "relationshipName": "executante",
             "otherEntityName": "user",
             "relationshipType": "many-to-one",
-            "otherEntityField": "login",
+            "otherEntityField": "id",
             "ownerSide": true
         }
     ],
@@ -71,6 +71,21 @@
                 "minlength"
             ],
             "fieldValidateRulesMinlength": "5"
+        },
+        {
+            "fieldName": "solucao",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dataAberto",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dataFechado",
+            "fieldType": "LocalDate"
         }
     ],
     "changelogDate": "20161012224334",

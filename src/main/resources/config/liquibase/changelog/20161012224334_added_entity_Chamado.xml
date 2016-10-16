@@ -49,6 +49,18 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="solucao" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="data_aberto" type="date">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="data_fechado" type="date">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="solicitante_id" type="bigint">
                 <constraints nullable="false" />
             </column>

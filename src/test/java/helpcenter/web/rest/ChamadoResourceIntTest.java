@@ -24,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,6 +65,15 @@ public class ChamadoResourceIntTest {
 
     private static final String DEFAULT_EMAIL = "AAAAA";
     private static final String UPDATED_EMAIL = "BBBBB";
+
+    private static final String DEFAULT_SOLUCAO = "AAAAA";
+    private static final String UPDATED_SOLUCAO = "BBBBB";
+
+    private static final LocalDate DEFAULT_DATA_ABERTO = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATA_ABERTO = LocalDate.now(ZoneId.systemDefault());
+
+    private static final LocalDate DEFAULT_DATA_FECHADO = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATA_FECHADO = LocalDate.now(ZoneId.systemDefault());
 
     @Inject
     private ChamadoRepository chamadoRepository;
@@ -104,7 +115,10 @@ public class ChamadoResourceIntTest {
                 .descricao(DEFAULT_DESCRICAO)
                 .severidade(DEFAULT_SEVERIDADE)
                 .sugestao(DEFAULT_SUGESTAO)
-                .email(DEFAULT_EMAIL);
+                .email(DEFAULT_EMAIL)
+                .solucao(DEFAULT_SOLUCAO)
+                .dataAberto(DEFAULT_DATA_ABERTO)
+                .dataFechado(DEFAULT_DATA_FECHADO);
         // Add required entity
         User solicitante = UserResourceIntTest.createEntity(em);
         em.persist(solicitante);
@@ -141,6 +155,9 @@ public class ChamadoResourceIntTest {
         assertThat(testChamado.getSeveridade()).isEqualTo(DEFAULT_SEVERIDADE);
         assertThat(testChamado.getSugestao()).isEqualTo(DEFAULT_SUGESTAO);
         assertThat(testChamado.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testChamado.getSolucao()).isEqualTo(DEFAULT_SOLUCAO);
+        assertThat(testChamado.getDataAberto()).isEqualTo(DEFAULT_DATA_ABERTO);
+        assertThat(testChamado.getDataFechado()).isEqualTo(DEFAULT_DATA_FECHADO);
     }
 
     @Test
@@ -235,6 +252,24 @@ public class ChamadoResourceIntTest {
 
     @Test
     @Transactional
+    public void checkDataAbertoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = chamadoRepository.findAll().size();
+        // set the field null
+        chamado.setDataAberto(null);
+
+        // Create the Chamado, which fails.
+
+        restChamadoMockMvc.perform(post("/api/chamados")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(chamado)))
+                .andExpect(status().isBadRequest());
+
+        List<Chamado> chamados = chamadoRepository.findAll();
+        assertThat(chamados).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllChamados() throws Exception {
         // Initialize the database
         chamadoRepository.saveAndFlush(chamado);
@@ -250,7 +285,10 @@ public class ChamadoResourceIntTest {
                 .andExpect(jsonPath("$.[*].descricao").value(hasItem(DEFAULT_DESCRICAO.toString())))
                 .andExpect(jsonPath("$.[*].severidade").value(hasItem(DEFAULT_SEVERIDADE.toString())))
                 .andExpect(jsonPath("$.[*].sugestao").value(hasItem(DEFAULT_SUGESTAO.toString())))
-                .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
+                .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+                .andExpect(jsonPath("$.[*].solucao").value(hasItem(DEFAULT_SOLUCAO.toString())))
+                .andExpect(jsonPath("$.[*].dataAberto").value(hasItem(DEFAULT_DATA_ABERTO.toString())))
+                .andExpect(jsonPath("$.[*].dataFechado").value(hasItem(DEFAULT_DATA_FECHADO.toString())));
     }
 
     @Test
@@ -270,7 +308,10 @@ public class ChamadoResourceIntTest {
             .andExpect(jsonPath("$.descricao").value(DEFAULT_DESCRICAO.toString()))
             .andExpect(jsonPath("$.severidade").value(DEFAULT_SEVERIDADE.toString()))
             .andExpect(jsonPath("$.sugestao").value(DEFAULT_SUGESTAO.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.solucao").value(DEFAULT_SOLUCAO.toString()))
+            .andExpect(jsonPath("$.dataAberto").value(DEFAULT_DATA_ABERTO.toString()))
+            .andExpect(jsonPath("$.dataFechado").value(DEFAULT_DATA_FECHADO.toString()));
     }
 
     @Test
@@ -297,7 +338,10 @@ public class ChamadoResourceIntTest {
                 .descricao(UPDATED_DESCRICAO)
                 .severidade(UPDATED_SEVERIDADE)
                 .sugestao(UPDATED_SUGESTAO)
-                .email(UPDATED_EMAIL);
+                .email(UPDATED_EMAIL)
+                .solucao(UPDATED_SOLUCAO)
+                .dataAberto(UPDATED_DATA_ABERTO)
+                .dataFechado(UPDATED_DATA_FECHADO);
 
         restChamadoMockMvc.perform(put("/api/chamados")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -315,6 +359,9 @@ public class ChamadoResourceIntTest {
         assertThat(testChamado.getSeveridade()).isEqualTo(UPDATED_SEVERIDADE);
         assertThat(testChamado.getSugestao()).isEqualTo(UPDATED_SUGESTAO);
         assertThat(testChamado.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testChamado.getSolucao()).isEqualTo(UPDATED_SOLUCAO);
+        assertThat(testChamado.getDataAberto()).isEqualTo(UPDATED_DATA_ABERTO);
+        assertThat(testChamado.getDataFechado()).isEqualTo(UPDATED_DATA_FECHADO);
     }
 
     @Test

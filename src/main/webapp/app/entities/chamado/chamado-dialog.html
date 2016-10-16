@@ -108,10 +108,42 @@
                 </p>
             </div>
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="helpcenterApp.chamado.solucao" for="field_solucao">Solucao</label>
+            <input type="text" class="form-control" name="solucao" id="field_solucao"
+                    ng-model="vm.chamado.solucao"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="helpcenterApp.chamado.dataAberto" for="field_dataAberto">Data Aberto</label>
+                <div class="input-group">
+                    <input id="field_dataAberto" type="text" class="form-control" name="dataAberto" uib-datepicker-popup="{{dateformat}}" ng-model="vm.chamado.dataAberto" is-open="vm.datePickerOpenStatus.dataAberto"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataAberto')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.dataAberto.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dataAberto.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="helpcenterApp.chamado.dataFechado" for="field_dataFechado">Data Fechado</label>
+                <div class="input-group">
+                    <input id="field_dataFechado" type="text" class="form-control" name="dataFechado" uib-datepicker-popup="{{dateformat}}" ng-model="vm.chamado.dataFechado" is-open="vm.datePickerOpenStatus.dataFechado"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataFechado')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
 
         <div class="form-group">
             <label data-translate="helpcenterApp.chamado.solicitante" for="field_solicitante">Solicitante</label>
-            <select class="form-control" id="field_solicitante" name="solicitante" ng-model="vm.chamado.solicitante" ng-options="user as user.login for user in vm.users track by user.id" required>
+            <select class="form-control" id="field_solicitante" name="solicitante" ng-model="vm.chamado.solicitante" ng-options="user as user.id for user in vm.users track by user.id" required>
                 <option value=""></option>
             </select>
         </div>
@@ -123,7 +155,7 @@
         </div>
         <div class="form-group">
             <label data-translate="helpcenterApp.chamado.executante" for="field_executante">Executante</label>
-            <select class="form-control" id="field_executante" name="executante" ng-model="vm.chamado.executante" ng-options="user as user.login for user in vm.users track by user.id">
+            <select class="form-control" id="field_executante" name="executante" ng-model="vm.chamado.executante" ng-options="user as user.id for user in vm.users track by user.id">
                 <option value=""></option>
             </select>
         </div>
