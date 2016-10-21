@@ -114,29 +114,55 @@
                     ng-model="vm.chamado.solucao"
                      />
         </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setAnexo($file, vm.chamado)" ngf-pattern="'image/*'">
+            <label class="control-label" data-translate="helpcenterApp.chamado.anexo" for="field_anexo">Anexo</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.chamado.anexoContentType + ';base64,' + vm.chamado.anexo}}" style="max-height: 100px;" ng-if="vm.chamado.anexo"/>
+                <div ng-if="vm.chamado.anexo" class="help-block clearfix">
+                    <span class="pull-left">{{vm.chamado.anexoContentType}}, {{vm.byteSize(vm.chamado.anexo)}}</span>
+                    <button type="button" ng-click="vm.chamado.anexo=null;vm.chamado.anexoContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setAnexo($file, vm.chamado)" accept="image/*" data-translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="anexo" id="field_anexo"
+                    ng-model="vm.chamado.anexo"
+                     />
+            <input type="hidden" class="form-control" name="anexoContentType" id="field_anexoContentType"
+                    ng-model="vm.chamado.anexoContentType" />
+        </div>
         <div class="form-group">
-            <label class="control-label" data-translate="helpcenterApp.chamado.dataAberto" for="field_dataAberto">Data Aberto</label>
+            <label class="control-label" data-translate="helpcenterApp.chamado.dataDeAbertura" for="field_dataDeAbertura">Data De Abertura</label>
                 <div class="input-group">
-                    <input id="field_dataAberto" type="text" class="form-control" name="dataAberto" uib-datepicker-popup="{{dateformat}}" ng-model="vm.chamado.dataAberto" is-open="vm.datePickerOpenStatus.dataAberto"
-                    required/>
+                    <input id="field_dataDeAbertura" type="text" class="form-control" name="dataDeAbertura" datetime-picker="{{dateformat}}" ng-model="vm.chamado.dataDeAbertura" is-open="vm.datePickerOpenStatus.dataDeAbertura"
+                    required  />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataAberto')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataDeAbertura')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
-            <div ng-show="editForm.dataAberto.$invalid">
+            <div ng-show="editForm.dataDeAbertura.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.dataAberto.$error.required" data-translate="entity.validation.required">
+                    ng-show="editForm.dataDeAbertura.$error.required" data-translate="entity.validation.required">
                     This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.dataDeAbertura.$error.ZonedDateTimelocal" data-translate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
                 </p>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="helpcenterApp.chamado.dataFechado" for="field_dataFechado">Data Fechado</label>
+            <label class="control-label" data-translate="helpcenterApp.chamado.dataDeFechamento" for="field_dataDeFechamento">Data De Fechamento</label>
                 <div class="input-group">
-                    <input id="field_dataFechado" type="text" class="form-control" name="dataFechado" uib-datepicker-popup="{{dateformat}}" ng-model="vm.chamado.dataFechado" is-open="vm.datePickerOpenStatus.dataFechado"
-                    />
+                    <input id="field_dataDeFechamento" type="text" class="form-control" name="dataDeFechamento" datetime-picker="{{dateformat}}" ng-model="vm.chamado.dataDeFechamento" is-open="vm.datePickerOpenStatus.dataDeFechamento"
+                      />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataFechado')"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dataDeFechamento')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
         </div>

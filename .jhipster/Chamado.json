@@ -77,15 +77,20 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "dataAberto",
-            "fieldType": "LocalDate",
+            "fieldName": "anexo",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "dataDeAbertura",
+            "fieldType": "ZonedDateTime",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "dataFechado",
-            "fieldType": "LocalDate"
+            "fieldName": "dataDeFechamento",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20161012224334",

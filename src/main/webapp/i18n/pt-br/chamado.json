@@ -24,8 +24,9 @@
             "sugestao": "Sugestao",
             "email": "Email",
             "solucao": "Solucao",
-            "dataAberto": "Data Aberto",
-            "dataFechado": "Data Fechado",
+            "anexo": "Anexo",
+            "dataDeAbertura": "Data De Abertura",
+            "dataDeFechamento": "Data De Fechamento",
             "solicitante": "Solicitante",
             "executante": "Executante"
         }

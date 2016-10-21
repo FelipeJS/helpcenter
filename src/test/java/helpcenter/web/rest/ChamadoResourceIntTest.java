@@ -20,11 +20,14 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -69,11 +72,18 @@ public class ChamadoResourceIntTest {
     private static final String DEFAULT_SOLUCAO = "AAAAA";
     private static final String UPDATED_SOLUCAO = "BBBBB";
 
-    private static final LocalDate DEFAULT_DATA_ABERTO = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_ABERTO = LocalDate.now(ZoneId.systemDefault());
+    private static final byte[] DEFAULT_ANEXO = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_ANEXO = TestUtil.createByteArray(2, "1");
+    private static final String DEFAULT_ANEXO_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_ANEXO_CONTENT_TYPE = "image/png";
 
-    private static final LocalDate DEFAULT_DATA_FECHADO = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_FECHADO = LocalDate.now(ZoneId.systemDefault());
+    private static final ZonedDateTime DEFAULT_DATA_DE_ABERTURA = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_DATA_DE_ABERTURA = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DATA_DE_ABERTURA_STR = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(DEFAULT_DATA_DE_ABERTURA);
+
+    private static final ZonedDateTime DEFAULT_DATA_DE_FECHAMENTO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_DATA_DE_FECHAMENTO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DATA_DE_FECHAMENTO_STR = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(DEFAULT_DATA_DE_FECHAMENTO);
 
     @Inject
     private ChamadoRepository chamadoRepository;
@@ -117,8 +127,10 @@ public class ChamadoResourceIntTest {
                 .sugestao(DEFAULT_SUGESTAO)
                 .email(DEFAULT_EMAIL)
                 .solucao(DEFAULT_SOLUCAO)
-                .dataAberto(DEFAULT_DATA_ABERTO)
-                .dataFechado(DEFAULT_DATA_FECHADO);
+                .anexo(DEFAULT_ANEXO)
+                .anexoContentType(DEFAULT_ANEXO_CONTENT_TYPE)
+                .dataDeAbertura(DEFAULT_DATA_DE_ABERTURA)
+                .dataDeFechamento(DEFAULT_DATA_DE_FECHAMENTO);
         // Add required entity
         User solicitante = UserResourceIntTest.createEntity(em);
         em.persist(solicitante);
@@ -156,8 +168,10 @@ public class ChamadoResourceIntTest {
         assertThat(testChamado.getSugestao()).isEqualTo(DEFAULT_SUGESTAO);
         assertThat(testChamado.getEmail()).isEqualTo(DEFAULT_EMAIL);
         assertThat(testChamado.getSolucao()).isEqualTo(DEFAULT_SOLUCAO);
-        assertThat(testChamado.getDataAberto()).isEqualTo(DEFAULT_DATA_ABERTO);
-        assertThat(testChamado.getDataFechado()).isEqualTo(DEFAULT_DATA_FECHADO);
+        assertThat(testChamado.getAnexo()).isEqualTo(DEFAULT_ANEXO);
+        assertThat(testChamado.getAnexoContentType()).isEqualTo(DEFAULT_ANEXO_CONTENT_TYPE);
+        assertThat(testChamado.getDataDeAbertura()).isEqualTo(DEFAULT_DATA_DE_ABERTURA);
+        assertThat(testChamado.getDataDeFechamento()).isEqualTo(DEFAULT_DATA_DE_FECHAMENTO);
     }
 
     @Test
@@ -252,10 +266,10 @@ public class ChamadoResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDataAbertoIsRequired() throws Exception {
+    public void checkDataDeAberturaIsRequired() throws Exception {
         int databaseSizeBeforeTest = chamadoRepository.findAll().size();
         // set the field null
-        chamado.setDataAberto(null);
+        chamado.setDataDeAbertura(null);
 
         // Create the Chamado, which fails.
 
@@ -287,8 +301,10 @@ public class ChamadoResourceIntTest {
                 .andExpect(jsonPath("$.[*].sugestao").value(hasItem(DEFAULT_SUGESTAO.toString())))
                 .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
                 .andExpect(jsonPath("$.[*].solucao").value(hasItem(DEFAULT_SOLUCAO.toString())))
-                .andExpect(jsonPath("$.[*].dataAberto").value(hasItem(DEFAULT_DATA_ABERTO.toString())))
-                .andExpect(jsonPath("$.[*].dataFechado").value(hasItem(DEFAULT_DATA_FECHADO.toString())));
+                .andExpect(jsonPath("$.[*].anexoContentType").value(hasItem(DEFAULT_ANEXO_CONTENT_TYPE)))
+                .andExpect(jsonPath("$.[*].anexo").value(hasItem(Base64Utils.encodeToString(DEFAULT_ANEXO))))
+                .andExpect(jsonPath("$.[*].dataDeAbertura").value(hasItem(DEFAULT_DATA_DE_ABERTURA_STR)))
+                .andExpect(jsonPath("$.[*].dataDeFechamento").value(hasItem(DEFAULT_DATA_DE_FECHAMENTO_STR)));
     }
 
     @Test
@@ -310,8 +326,10 @@ public class ChamadoResourceIntTest {
             .andExpect(jsonPath("$.sugestao").value(DEFAULT_SUGESTAO.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
             .andExpect(jsonPath("$.solucao").value(DEFAULT_SOLUCAO.toString()))
-            .andExpect(jsonPath("$.dataAberto").value(DEFAULT_DATA_ABERTO.toString()))
-            .andExpect(jsonPath("$.dataFechado").value(DEFAULT_DATA_FECHADO.toString()));
+            .andExpect(jsonPath("$.anexoContentType").value(DEFAULT_ANEXO_CONTENT_TYPE))
+            .andExpect(jsonPath("$.anexo").value(Base64Utils.encodeToString(DEFAULT_ANEXO)))
+            .andExpect(jsonPath("$.dataDeAbertura").value(DEFAULT_DATA_DE_ABERTURA_STR))
+            .andExpect(jsonPath("$.dataDeFechamento").value(DEFAULT_DATA_DE_FECHAMENTO_STR));
     }
 
     @Test
@@ -340,8 +358,10 @@ public class ChamadoResourceIntTest {
                 .sugestao(UPDATED_SUGESTAO)
                 .email(UPDATED_EMAIL)
                 .solucao(UPDATED_SOLUCAO)
-                .dataAberto(UPDATED_DATA_ABERTO)
-                .dataFechado(UPDATED_DATA_FECHADO);
+                .anexo(UPDATED_ANEXO)
+                .anexoContentType(UPDATED_ANEXO_CONTENT_TYPE)
+                .dataDeAbertura(UPDATED_DATA_DE_ABERTURA)
+                .dataDeFechamento(UPDATED_DATA_DE_FECHAMENTO);
 
         restChamadoMockMvc.perform(put("/api/chamados")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -360,8 +380,10 @@ public class ChamadoResourceIntTest {
         assertThat(testChamado.getSugestao()).isEqualTo(UPDATED_SUGESTAO);
         assertThat(testChamado.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testChamado.getSolucao()).isEqualTo(UPDATED_SOLUCAO);
-        assertThat(testChamado.getDataAberto()).isEqualTo(UPDATED_DATA_ABERTO);
-        assertThat(testChamado.getDataFechado()).isEqualTo(UPDATED_DATA_FECHADO);
+        assertThat(testChamado.getAnexo()).isEqualTo(UPDATED_ANEXO);
+        assertThat(testChamado.getAnexoContentType()).isEqualTo(UPDATED_ANEXO_CONTENT_TYPE);
+        assertThat(testChamado.getDataDeAbertura()).isEqualTo(UPDATED_DATA_DE_ABERTURA);
+        assertThat(testChamado.getDataDeFechamento()).isEqualTo(UPDATED_DATA_DE_FECHAMENTO);
     }
 
     @Test

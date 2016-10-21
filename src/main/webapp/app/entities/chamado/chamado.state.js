@@ -120,8 +120,10 @@
                                 sugestao: null,
                                 email: null,
                                 solucao: null,
-                                dataAberto: null,
-                                dataFechado: null,
+                                anexo: null,
+                                anexoContentType: null,
+                                dataDeAbertura: null,
+                                dataDeFechamento: null,
                                 id: null
                             };
                         }

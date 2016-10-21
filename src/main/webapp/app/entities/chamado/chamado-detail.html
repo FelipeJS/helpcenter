@@ -36,13 +36,22 @@
         <dd>
             <span>{{vm.chamado.solucao}}</span>
         </dd>
-        <dt><span data-translate="helpcenterApp.chamado.dataAberto">Data Aberto</span></dt>
+        <dt><span data-translate="helpcenterApp.chamado.anexo">Anexo</span></dt>
         <dd>
-            <span>{{vm.chamado.dataAberto | date:'mediumDate'}}</span>
+            <div ng-if="vm.chamado.anexo">
+                <a ng-click="vm.openFile(vm.chamado.anexoContentType, vm.chamado.anexo)">
+                    <img data-ng-src="{{'data:' + vm.chamado.anexoContentType + ';base64,' + vm.chamado.anexo}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.chamado.anexoContentType}}, {{vm.byteSize(vm.chamado.anexo)}}
+            </div>
         </dd>
-        <dt><span data-translate="helpcenterApp.chamado.dataFechado">Data Fechado</span></dt>
+        <dt><span data-translate="helpcenterApp.chamado.dataDeAbertura">Data De Abertura</span></dt>
         <dd>
-            <span>{{vm.chamado.dataFechado | date:'mediumDate'}}</span>
+            <span>{{vm.chamado.dataDeAbertura | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="helpcenterApp.chamado.dataDeFechamento">Data De Fechamento</span></dt>
+        <dd>
+            <span>{{vm.chamado.dataDeFechamento | date:'medium'}}</span>
         </dd>
         <dt><span data-translate="helpcenterApp.chamado.solicitante">Solicitante</span></dt>
         <dd>

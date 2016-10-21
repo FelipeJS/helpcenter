@@ -6,7 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 import helpcenter.domain.enumeration.Status;
@@ -66,12 +66,19 @@ public class Chamado implements Serializable {
     @Column(name = "solucao")
     private String solucao;
 
-    @NotNull
-    @Column(name = "data_aberto", nullable = false)
-    private LocalDate dataAberto;
+    @Lob
+    @Column(name = "anexo")
+    private byte[] anexo;
 
-    @Column(name = "data_fechado")
-    private LocalDate dataFechado;
+    @Column(name = "anexo_content_type")
+    private String anexoContentType;
+
+    @NotNull
+    @Column(name = "data_de_abertura", nullable = false)
+    private ZonedDateTime dataDeAbertura;
+
+    @Column(name = "data_de_fechamento")
+    private ZonedDateTime dataDeFechamento;
 
     @ManyToOne
     @NotNull
@@ -192,30 +199,56 @@ public class Chamado implements Serializable {
         this.solucao = solucao;
     }
 
-    public LocalDate getDataAberto() {
-        return dataAberto;
+    public byte[] getAnexo() {
+        return anexo;
     }
 
-    public Chamado dataAberto(LocalDate dataAberto) {
-        this.dataAberto = dataAberto;
+    public Chamado anexo(byte[] anexo) {
+        this.anexo = anexo;
         return this;
     }
 
-    public void setDataAberto(LocalDate dataAberto) {
-        this.dataAberto = dataAberto;
+    public void setAnexo(byte[] anexo) {
+        this.anexo = anexo;
     }
 
-    public LocalDate getDataFechado() {
-        return dataFechado;
+    public String getAnexoContentType() {
+        return anexoContentType;
     }
 
-    public Chamado dataFechado(LocalDate dataFechado) {
-        this.dataFechado = dataFechado;
+    public Chamado anexoContentType(String anexoContentType) {
+        this.anexoContentType = anexoContentType;
         return this;
     }
 
-    public void setDataFechado(LocalDate dataFechado) {
-        this.dataFechado = dataFechado;
+    public void setAnexoContentType(String anexoContentType) {
+        this.anexoContentType = anexoContentType;
+    }
+
+    public ZonedDateTime getDataDeAbertura() {
+        return dataDeAbertura;
+    }
+
+    public Chamado dataDeAbertura(ZonedDateTime dataDeAbertura) {
+        this.dataDeAbertura = dataDeAbertura;
+        return this;
+    }
+
+    public void setDataDeAbertura(ZonedDateTime dataDeAbertura) {
+        this.dataDeAbertura = dataDeAbertura;
+    }
+
+    public ZonedDateTime getDataDeFechamento() {
+        return dataDeFechamento;
+    }
+
+    public Chamado dataDeFechamento(ZonedDateTime dataDeFechamento) {
+        this.dataDeFechamento = dataDeFechamento;
+        return this;
+    }
+
+    public void setDataDeFechamento(ZonedDateTime dataDeFechamento) {
+        this.dataDeFechamento = dataDeFechamento;
     }
 
     public User getSolicitante() {
@@ -276,8 +309,10 @@ public class Chamado implements Serializable {
             ", sugestao='" + sugestao + "'" +
             ", email='" + email + "'" +
             ", solucao='" + solucao + "'" +
-            ", dataAberto='" + dataAberto + "'" +
-            ", dataFechado='" + dataFechado + "'" +
+            ", anexo='" + anexo + "'" +
+            ", anexoContentType='" + anexoContentType + "'" +
+            ", dataDeAbertura='" + dataDeAbertura + "'" +
+            ", dataDeFechamento='" + dataDeFechamento + "'" +
             '}';
     }
 }

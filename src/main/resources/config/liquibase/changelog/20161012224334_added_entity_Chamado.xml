@@ -53,11 +53,18 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="data_aberto" type="date">
+            <column name="anexo" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="anexo_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="data_de_abertura" type="timestamp">
                 <constraints nullable="false" />
             </column>
             
-            <column name="data_fechado" type="date">
+            <column name="data_de_fechamento" type="timestamp">
                 <constraints nullable="true" />
             </column>
             
@@ -71,6 +78,8 @@
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="chamado" columnName="data_de_abertura" columnDataType="datetime"/>
+        <dropDefaultValue tableName="chamado" columnName="data_de_fechamento" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>
